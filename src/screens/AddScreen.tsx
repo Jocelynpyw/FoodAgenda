@@ -18,8 +18,8 @@ export interface IMenu {
   nombre_de_fois: Number;
   qte_eau: Number;
   qte_autre_Liquide: Number;
-  fruit: Boolean;
-  selle: Boolean;
+  fruit: String;
+  selle: Number;
   probleme_sante: String;
 }
 
@@ -27,6 +27,7 @@ const AddScreen = () => {
   //   const [text, onChangeText] = React.useState('Useless Text');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const [aliment, setAliment] = useState('');
   const [nombre_de_fois, setNombre_de_fois] = useState('');
@@ -59,7 +60,8 @@ const AddScreen = () => {
     general = getData();
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    setModal(true);
     const menu: IMenu = {
       date,
       aliment,
@@ -70,8 +72,9 @@ const AddScreen = () => {
       selle,
       probleme_sante,
     };
-    general.push(menu);
+    await general.push(menu);
     storeData(general);
+
     console.log('Le menu est : ', general);
     setAliment('');
     setNombre_de_fois('');
@@ -91,7 +94,7 @@ const AddScreen = () => {
       <ScrollView>
         <View style={styles.textInputContainer}>
           <Text style={styles.label}>Date</Text>
-          <DatePicker
+          {/* <DatePicker
             modal
             open={open}
             date={date}
@@ -102,15 +105,15 @@ const AddScreen = () => {
             onCancel={() => {
               setOpen(false);
             }}
-          />
+          /> */}
           {/* <DatePicker date={date} onDateChange={setDate} /> */}
 
-          {/* <TextInput
+          <TextInput
             style={styles.input}
             onChangeText={text => setDate(text)}
             placeholder="2022-12-01"
             keyboardType="default"
-          /> */}
+          />
         </View>
         <View style={styles.textInputContainer}>
           <Text style={styles.label}>Aliment consome</Text>
@@ -157,7 +160,7 @@ const AddScreen = () => {
             style={styles.input}
             onChangeText={text => setFruit(text)}
             placeholder="useless placeholder"
-            keyboardType="numeric"
+            keyboardType="default"
           />
         </View>
         <View style={styles.textInputContainer}>
@@ -175,9 +178,17 @@ const AddScreen = () => {
             style={styles.input}
             onChangeText={text => setProbleme_sante(text)}
             placeholder="useless placeholder"
-            keyboardType="numeric"
+            keyboardType="default"
           />
         </View>
+        {/* {modal === true &&
+          setTimeout(() => {
+            <View style={styles.modal}>
+              <View>
+                <Text>COMPLETED</Text>
+              </View>
+            </View>;
+          }, 1000)} */}
 
         <TouchableOpacity onPress={handleSave}>
           <View style={styles.saveContainer}>
@@ -226,5 +237,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 20,
+  },
+
+  modal: {
+    width: '100%',
+    height: 200,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    backgroundColor: 'lime',
+    marginTop: 150,
+  },
+  btn: {
+    width: '200',
+    height: '30',
   },
 });

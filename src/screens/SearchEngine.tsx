@@ -27,39 +27,54 @@ const questions = [
   {
     question:
       "Quelles sont les nourritures à éviter pour ne pas contracter l'obésité ",
-    answer: '',
+    answer: 'akachi , dumpa ',
   },
   {
     question:
       'Quelles sont les nourritures à éviter pour ne pas contracter le diabète?',
-    answer: '',
+    answer: 'akachi , dumpa',
   },
   {
     question:
       'Quelles sont les nourritures à éviter pour ne pas contracter la constipation ?',
-    answer: '',
+    answer: 'Maddessou , muambe ,makayabou,',
+  },
+  {
+    question: 'Quels sont les nutriments du muambe',
+    answer: 'Maddessou , muambe ,makayabou,',
+  },
+
+  {
+    question: 'comment manger saint ?',
+    answer:
+      '1) Réduire sa consommation de produits transformés 2) Consommer des aliments sains et naturels.  3) Composer des repas équilibrés 4) Réduire le sucre (5% ou moins de l apport calorique journalier 5) Consommer des céréales complètes. 6) Manger plus de protéines végétales.7) S hydrater suffisamment en buvant de leau',
   },
   {
     question:
       'Quelles sont les nourritures à éviter pour ne pas avoir de maux de ventre?',
-    answer: '',
+    answer: 'boeuf sauce bloque au karibout',
+  },
+  {
+    question:
+      'Quelles sont les nourritures à éviter pour ne pas avoir de maux de ventre?',
+    answer: 'boeuf sauce bloque au karibout',
   },
 
   {
     question:
       ' Quelles sont les nourritures à éviter pour ne pas avoir de gaz ?',
-    answer: '',
+    answer: 'kiwi , niboke',
   },
 
   {
     question:
       "Quels aliments dois-je éviter pour ne pas contracter l'obésité en mangeant du koki ?",
-    answer: '',
+    answer: 'les jus gazeux',
   },
   {
     question:
       'Quels aliments dois-je éviter pour ne pas contracter le diabète en mangeant du riz',
-    answer: '',
+    answer: 'les jus gazeux',
   },
   {
     question:
