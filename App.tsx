@@ -10,6 +10,11 @@ import SearchEngine from './src/screens/SearchEngine';
 import Splash from './src/screens/Splash';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import PredictionScreen from './src/screens/PredictionScreen';
+import {store} from './src/redux/store';
+import {Provider} from 'react-redux';
+import DetailsFoodScreen from './src/screens/DetailsFoodScreen';
+import HealthyEatingScreen from './src/screens/HealthyEatingScreen';
+import DailyMeans from './src/screens/DailyMeans';
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -55,15 +60,23 @@ export default function App() {
     );
   };
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="Acceuil" component={Splash} />
-        <Stack.Screen name="MyStack" component={MyStack} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="Acceuil" component={Splash} />
+          <Stack.Screen name="DetailsScreen" component={DetailsFoodScreen} />
+          <Stack.Screen name="MyStack" component={MyStack} />
+          <Stack.Screen
+            name="HealthyEatingScreen"
+            component={HealthyEatingScreen}
+          />
+          <Stack.Screen name="dailyMeans" component={DailyMeans} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

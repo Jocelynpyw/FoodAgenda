@@ -22,7 +22,14 @@ export interface IMenu {
   selle: Number;
   probleme_sante: String;
 }
-
+export const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('MenuItem');
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
 const AddScreen = () => {
   //   const [text, onChangeText] = React.useState('Useless Text');
   const [date, setDate] = useState(new Date());
@@ -47,21 +54,11 @@ const AddScreen = () => {
     }
   };
 
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('MenuItem');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      // error reading value
-    }
-  };
+  // useEffect(() => {
+  //   general = getData();
+  // }, []);
 
-  useEffect(() => {
-    general = getData();
-  }, []);
-
-  const handleSave = async () => {
-    setModal(true);
+  const handleSave = () => {
     const menu: IMenu = {
       date,
       aliment,
@@ -72,10 +69,6 @@ const AddScreen = () => {
       selle,
       probleme_sante,
     };
-    await general.push(menu);
-    storeData(general);
-
-    console.log('Le menu est : ', general);
     setAliment('');
     setNombre_de_fois('');
     setQte_eau('');
@@ -83,6 +76,7 @@ const AddScreen = () => {
     setSelle('');
     setProbleme_sante('');
     setFruit('');
+    // await general.push(menu);
   };
 
   return (
