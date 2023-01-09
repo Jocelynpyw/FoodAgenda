@@ -9,31 +9,30 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {getData} from './AddScreen';
 import type {RootState} from '../redux/store';
 import moment from 'moment';
 
 const HomeScreen = ({navigation}) => {
-  const DATA = useSelector((state: RootState) => state.counter.value);
+  useEffect(() => {}, []);
+  const DATA = useSelector((state: RootState) => state.counter);
 
-  let initialValue = 0;
-
-  var nbreManger = DATA.reduce((accumulator, object) => {
+  var nbreManger = DATA?.reduce((accumulator, object) => {
     return accumulator + object.nombre_de_fois;
   }, 0);
-  var nbreqte_eau = DATA.reduce((accumulator, object) => {
+  var nbreqte_eau = DATA?.reduce((accumulator, object) => {
     return accumulator + object.qte_eau;
   }, 0);
-  var nbreqte_autreLiquide = DATA.reduce((accumulator, object) => {
+  var nbreqte_autreLiquide = DATA?.reduce((accumulator, object) => {
     return accumulator + object.qte_autre_Liquide;
   }, 0);
 
   //   const navivation = useNavigation();
 
   //   const allReducer = getData();
-  //   console.log('All les reducers sont : ', JSON.stringify(DATA));
+  console.log('All les reducers sont : ', JSON.stringify(DATA));
 
   const renderItem = ({item}) => (
     <TouchableOpacity

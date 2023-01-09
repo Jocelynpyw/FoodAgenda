@@ -13,7 +13,7 @@ const fleche = require('../assets/fleche.png');
 import moment from 'moment';
 
 const DailyMeans = () => {
-  const DATA = useSelector((state: RootState) => state.counter.value);
+  const DATA = useSelector((state: RootState) => state.counter);
   console.log('All les reducers sont : ', JSON.stringify(DATA));
   const renderItem = ({item}) => (
     <View style={styles.vie}>

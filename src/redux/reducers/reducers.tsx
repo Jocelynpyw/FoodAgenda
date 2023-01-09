@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 import {data} from '../../data/datas';
+import {IMenu} from '../../screens/AddScreen';
 
 // export interface CounterState {
 //   value: number;
@@ -13,26 +14,14 @@ import {data} from '../../data/datas';
 //   value: number;
 // }
 
-const initialState: any = {
-  value: data,
-};
+const initialState: any = data;
 
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    increment: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
-    },
-    decrement: state => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    addMenu: (state, action) => {
+      state.push(action.payload);
     },
   },
 });

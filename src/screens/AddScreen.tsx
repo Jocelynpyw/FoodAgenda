@@ -10,11 +10,12 @@ import {
 import React, {useState, useEffect} from 'react';
 import DatePicker from 'react-native-date-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
 // import {} from 'react-native-gesture-handler';
 
 export interface IMenu {
   date: Date;
-  aliment: String;
+  Aliment: String;
   nombre_de_fois: Number;
   qte_eau: Number;
   qte_autre_Liquide: Number;
@@ -31,12 +32,14 @@ export const getData = async () => {
   }
 };
 const AddScreen = () => {
+  const dispatch = useDispatch();
+
   //   const [text, onChangeText] = React.useState('Useless Text');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState('2022-01-07');
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
 
-  const [aliment, setAliment] = useState('');
+  const [Aliment, setAliment] = useState('');
   const [nombre_de_fois, setNombre_de_fois] = useState('');
   const [qte_eau, setQte_eau] = useState('');
   const [qte_autre_Liquide, setQte_autre_Liquide] = useState('');
@@ -61,7 +64,7 @@ const AddScreen = () => {
   const handleSave = () => {
     const menu: IMenu = {
       date,
-      aliment,
+      Aliment,
       nombre_de_fois,
       qte_eau,
       qte_autre_Liquide,
@@ -69,14 +72,8 @@ const AddScreen = () => {
       selle,
       probleme_sante,
     };
-    setAliment('');
-    setNombre_de_fois('');
-    setQte_eau('');
-    setQte_autre_Liquide('');
-    setSelle('');
-    setProbleme_sante('');
-    setFruit('');
-    // await general.push(menu);
+    dispatch({type: 'counter/addMenu', payload: menu});
+    console.log('Le menu est : ', menu);
   };
 
   return (
@@ -107,6 +104,7 @@ const AddScreen = () => {
             onChangeText={text => setDate(text)}
             placeholder="2022-12-01"
             keyboardType="default"
+            value={date}
           />
         </View>
         <View style={styles.textInputContainer}>

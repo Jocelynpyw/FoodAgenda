@@ -4,7 +4,7 @@ import type {RootState} from '../redux/store';
 import {useSelector} from 'react-redux';
 
 const HealthyEatingScreen = () => {
-  const DATA = useSelector((state: RootState) => state.counter.value);
+  const DATA = useSelector((state: RootState) => state.counter);
 
   const HeartData = DATA.filter(
     item => item.selle < 3 && item.probleme_sante === 'aucun',
