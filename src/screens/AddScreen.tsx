@@ -10,25 +10,36 @@ import {
 import React, {useState, useEffect} from 'react';
 import DatePicker from 'react-native-date-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
 // import {} from 'react-native-gesture-handler';
 
 export interface IMenu {
   date: Date;
-  aliment: String;
+  Aliment: String;
   nombre_de_fois: Number;
   qte_eau: Number;
   qte_autre_Liquide: Number;
-  fruit: Boolean;
-  selle: Boolean;
+  fruit: String;
+  selle: Number;
   probleme_sante: String;
 }
-
+export const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('MenuItem');
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
 const AddScreen = () => {
-  //   const [text, onChangeText] = React.useState('Useless Text');
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  const [aliment, setAliment] = useState('');
+  //   const [text, onChangeText] = React.useState('Useless Text');
+  const [date, setDate] = useState('2022-01-07');
+  const [open, setOpen] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const [Aliment, setAliment] = useState('');
   const [nombre_de_fois, setNombre_de_fois] = useState('');
   const [qte_eau, setQte_eau] = useState('');
   const [qte_autre_Liquide, setQte_autre_Liquide] = useState('');
@@ -46,23 +57,14 @@ const AddScreen = () => {
     }
   };
 
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('MenuItem');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      // error reading value
-    }
-  };
-
-  useEffect(() => {
-    general = getData();
-  }, []);
+  // useEffect(() => {
+  //   general = getData();
+  // }, []);
 
   const handleSave = () => {
     const menu: IMenu = {
       date,
-      aliment,
+      Aliment,
       nombre_de_fois,
       qte_eau,
       qte_autre_Liquide,
@@ -70,16 +72,8 @@ const AddScreen = () => {
       selle,
       probleme_sante,
     };
-    general.push(menu);
-    storeData(general);
-    console.log('Le menu est : ', general);
-    setAliment('');
-    setNombre_de_fois('');
-    setQte_eau('');
-    setQte_autre_Liquide('');
-    setSelle('');
-    setProbleme_sante('');
-    setFruit('');
+    dispatch({type: 'counter/addMenu', payload: menu});
+    console.log('Le menu est : ', menu);
   };
 
   return (
@@ -91,7 +85,7 @@ const AddScreen = () => {
       <ScrollView>
         <View style={styles.textInputContainer}>
           <Text style={styles.label}>Date</Text>
-          <DatePicker
+          {/* <DatePicker
             modal
             open={open}
             date={date}
@@ -102,15 +96,16 @@ const AddScreen = () => {
             onCancel={() => {
               setOpen(false);
             }}
-          />
+          /> */}
           {/* <DatePicker date={date} onDateChange={setDate} /> */}
 
-          {/* <TextInput
+          <TextInput
             style={styles.input}
             onChangeText={text => setDate(text)}
             placeholder="2022-12-01"
             keyboardType="default"
-          /> */}
+            value={date}
+          />
         </View>
         <View style={styles.textInputContainer}>
           <Text style={styles.label}>Aliment consome</Text>
@@ -157,7 +152,7 @@ const AddScreen = () => {
             style={styles.input}
             onChangeText={text => setFruit(text)}
             placeholder="useless placeholder"
-            keyboardType="numeric"
+            keyboardType="default"
           />
         </View>
         <View style={styles.textInputContainer}>
@@ -175,9 +170,17 @@ const AddScreen = () => {
             style={styles.input}
             onChangeText={text => setProbleme_sante(text)}
             placeholder="useless placeholder"
-            keyboardType="numeric"
+            keyboardType="default"
           />
         </View>
+        {/* {modal === true &&
+          setTimeout(() => {
+            <View style={styles.modal}>
+              <View>
+                <Text>COMPLETED</Text>
+              </View>
+            </View>;
+          }, 1000)} */}
 
         <TouchableOpacity onPress={handleSave}>
           <View style={styles.saveContainer}>
@@ -226,5 +229,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 20,
+  },
+
+  modal: {
+    width: '100%',
+    height: 200,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    backgroundColor: 'lime',
+    marginTop: 150,
+  },
+  btn: {
+    width: '200',
+    height: '30',
   },
 });
